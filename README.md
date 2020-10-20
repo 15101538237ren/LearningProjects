@@ -1,8 +1,8 @@
 # Node.js and React Native learning path
 
-## [1. *Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
+## [*Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
-### 1. 1 Fundamental Questions about JS
+### 1. Fundamental Questions about JS
 
 #### (1) What JS is?
 JS is the most popular language, and which can serve for both front-end and back-end. 
@@ -18,14 +18,14 @@ Historically, JS ran on JS engine, e.g chrome V8; At 2009, a developer Ryan Dahl
 
  ECMAScript is a specification, and Javascript is a language which conform with the specification. ES6 was released at 2015.
 
- ### 1.2 Set Up the  Development Environment
+ ### 2 Set Up the  Development Environment
 
  [VSCode](https://code.visualstudio.com/) and [Node.js](https://nodejs.org/en/)
 
  You can add some plugins into VSCodes, which can really boost the development experience, see [this post](https://medium.com/react-native-training/vscode-for-react-native-526ec4a368ce).
 
 
-### 1.3 Separation of Concerns
+### 3 Separation of Concerns
 
 We want to separate the HTML code and JS code for the consideration of separation of concerns. e.g separate js and html into different file, linked by **src** tag.
 
@@ -43,14 +43,14 @@ We want to separate the HTML code and JS code for the consideration of separatio
 </html>
 ```
 
-### 1.4 Javascript in Node
+### 4 Javascript in Node
 You can execute Javascript in Node by execute following command in cmd line or in integrated terminal in VSCode.
 
 ```bash
 node index.js
 ```
 
-### 1.5 Variable and Constant
+### 5 Variable and Constant
 
 To define and assign variables, you can do:
 
@@ -73,8 +73,9 @@ To define a constant, you can type:
 const song = 'let it be';
 ```
 
-### 1.6 Primitive Types in Javascript
+### 6 Primitive Types and Reference Types in Javascript
 
+#### Primitive Types
 There are 5 Primitive Types in Javascript, and they are: `String`, `Boolean`, `Number`, `undefined` and `null`. e.g.
 
 ```javascript
@@ -85,8 +86,69 @@ let description = undefined; //Boolean
 let favoriteFood = null; //Boolean
 ```
 
+Javascript is a Dynamic Typing language, which means you can change the type of variables by assigning to different type values.
 
-## [2. *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
+#### Reference Types
+There are 3 Reference Types in Javascript, and they are: `Object`, `Array` and `Function`. e.g.
+
+- #### Object
+
+You can access property of an object by either `Dot notation` or `Bracket Notation`, the default choice would be Dot notation, unless interested field of the object is unknown until running time.
+
+```javascript
+console.log(jessica.name); // Dot notation
+
+
+let tom = {
+    name : 'Tom',
+    age : 24,
+    isMale : true
+}; //Objects
+
+console.log(tom['name']); // Bracket Notation
+```
+
+- #### Array
+
+```javascript
+console.log(jessica.name); // Dot notation
+
+// Array
+let people = [jessica, tom];
+people[2] = 1; // Dynamic Typing
+console.log(people[0]); // Access element of an array
+```
+
+- #### Function
+
+```javascript
+/* Function */
+
+//Performing a task
+function greeting(firstName, lastName) {
+    console.log("Hello " + firstName + " " + lastName + "!");
+}
+
+firstName = "John";
+lastName = "Smith";
+
+greeting(firstName, lastName); 
+
+//Calculating a number
+function square(a) {
+    return a * a;
+}
+
+console.log(square(107));
+```
+
+## [*ES6 Tutorial: Learn Modern JavaScript in 1 Hour* from Youtube](https://youtu.be/NCwa_xi0Uuc)
+
+
+
+
+
+## [*Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### Lec 1. What is Async JS?
 
