@@ -43,6 +43,37 @@ We want to separate the HTML code and JS code for the consideration of separatio
 </html>
 ```
 
+### 1.4 Javascript in Node
+You can execute Javascript in Node by execute following command in cmd line or in integrated terminal in VSCode.
+
+```bash
+node index.js
+```
+
+### 1.5 Variable and Constant
+
+To define and assign variables, you can do:
+
+```javascript
+let fruit = 'apple';
+console.log(fruit);
+
+fruit = 'banana';
+console.log(fruit);
+
+var sport = 'tennis';
+sport = 'running';
+```
+
+where the difference between `var` and `let` keyword is that Variables defined by `var` is available in **global** scope, and the variables defined by `let` only available in **local** scape, e.g. function.
+
+To define a constant, you can type:
+
+```javascript
+const song = 'let it be';
+```
+
+
 ## [2. *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### Lec 1. What is Async JS?
