@@ -73,6 +73,18 @@ To define a constant, you can type:
 const song = 'let it be';
 ```
 
+### 1.6 Primitive Types in Javascript
+
+There are 5 Primitive Types in Javascript, and they are: `String`, `Boolean`, `Number`, `undefined` and `null`. e.g.
+
+```javascript
+let name = 'Jessica'; //String
+let age = 24; //Number
+let isMale = false; //Boolean
+let description = undefined; //Boolean
+let favoriteFood = null; //Boolean
+```
+
 
 ## [2. *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
