@@ -1,6 +1,6 @@
 # Node.js and React Native learning path
 
-## [1. Fundamental of Modern JS](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
+## [1. *Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### 1. 1 Fundamental Questions about JS
 
@@ -27,7 +27,7 @@ Historically, JS ran on JS engine, e.g chrome V8; At 2009, a developer Ryan Dahl
 
 
 
-## [2. Asynchronous JavaScript](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
+## [2. *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### Lec 1. What is Async JS?
 
