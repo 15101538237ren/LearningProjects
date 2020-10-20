@@ -1,6 +1,6 @@
 # Node.js and React Native learning path
 
-## [*Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
+## [Summary of *Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### 1. Fundamental Questions about JS
 
@@ -142,13 +142,216 @@ function square(a) {
 console.log(square(107));
 ```
 
-## [*ES6 Tutorial: Learn Modern JavaScript in 1 Hour* from Youtube](https://youtu.be/NCwa_xi0Uuc)
+## [Summary of *ES6 Tutorial: Learn Modern JavaScript in 1 Hour* from Youtube](https://youtu.be/NCwa_xi0Uuc)
 
+#### The `this` keyword
 
+The `this` keyword is a super confusing thing in JS, because it does not always behave like its meaning.
 
+```javascript
+const person = {
+    name : 'Jeremy',
+    walk() {
+        console.log(this);
+        // `this` return a object which it is being called. when it is called out of object, it returns global object window
+    }
+}
 
+person.walk(); // output person object, 'this' behave like its original meaning.
 
-## [*Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
+const walk = person.walk;
+walk(); // output person undefined if strict mode enabled else window object, here, 'this' behave doesn't like its original meaning.
+```
+
+- #### Binding `this`
+
+```javascript
+const walk = person.walk.bind(person); // bind the value of this to person object.
+
+walk(); // output person person, 'this' behave doesn't like its meaning
+```
+
+#### Arrow Function
+
+```javascript
+/* Arrow Function */
+
+// traditional ways of defining function
+const square = function(number) {
+    return number * number;
+}
+
+// Arrow function
+const squareAf = number => number * number;
+
+console.log(squareAf(57));
+```
+
+The scenarios where arrow function are useful.
+
+```javascript
+const jobs = [
+    {id : 1, isActive: false},
+    {id : 2, isActive: true},
+    {id : 3, isActive: true},
+    {id : 4, isActive: false}
+]
+
+//Traditional
+const activeJobs = jobs.filter(function(job) {return job.isActive});
+
+//ES6
+const activeJobsAf = jobs.filter(job => job.isActive);
+```
+
+- #### Arrow Functions and `this`
+
+```javascript
+// Traditional function won't inherit `this` reference when called in timeout or async function
+const Jimmy = {
+    name : 'Jimmy',
+    walk() {
+        setTimeout(function(){
+            console.log(this);
+        }, 1000);
+    }
+}
+
+Jimmy.walk(); // returns window object instead of dog!
+
+// Arrow function will inherit `this` reference when called in timeout or async function
+const Perry = {
+    name : 'Perry',
+    walk() {
+        setTimeout(() => {console.log(this)}, 1000);
+    }
+}
+
+Perry.walk();
+```
+
+#### `Array.map` Method
+
+`Array.map` is useful when render a list in React Native.
+
+```javascript
+const colors = ['red', 'green', 'blue'];
+
+const items = colors.map( color => `<li>${color}</li>`); // Template literal
+
+console.log(items); //Output: ["<li>red</li>", "<li>green</li>", "<li>blue</li>"]
+```
+#### Destructing
+
+```javascript
+// Without Destructing
+const address = {
+    street: 'Adobe Circle Road',
+    city: 'Irvine',
+    country: 'US'
+};
+
+const street = address.street;
+const city = address.city;
+const country = address.country;
+
+// With Destructing
+
+const { street : st } = street; //only use the street field in street object and assigned to st variable
+```
+
+#### Spread Operator
+
+```javascript
+// Without Spread Operator
+
+const firstArr = [1, 2, 3];
+const secondArr = [4, 5, 6];
+
+const combinedArr = firstArr.concat(secondArr);
+
+// With Spread Operator
+
+const combinedWithSpread = [...firstArr, 'a', ...secondArr, 'b']; // The final look of the array is much clear than without spread.
+
+// Combined Object using Spread Operator
+
+const firstObj = {name : 'Josh'};
+const secondObj = {job : 'SDE', age: 28};
+const combined = {...firstObj, ...secondObj, 'Street': 'Cupertino'};
+
+console.log(combined);
+
+const clone = {...combined};//clone a object
+```
+
+#### Classes and Class Inheritance
+
+```javascript
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    walk() {
+        console.log(`${this.name} is walking`);
+    }
+}
+
+const ariana = new Person('ariana');
+ariana.name;
+console.log(ariana);
+
+class Teacher extends Person{
+
+    constructor(name, degree){
+        super(name);
+        this.degree = degree;
+    }
+
+    teach(){
+        console.log(`${this.name} is teaching with a ${this.degree} degree.`);
+    }
+}
+
+const susan = new Teacher('susan', 'master');
+
+console.log(susan.teach());
+```
+
+#### Modules
+
+To organize the classes and files in js project, we partitioned classes into modules for the separation of concerns.
+
+See instances at `person.js` and `teacher.js` files.
+
+#### Named and Default Exports
+
+Define a Default Export
+
+```javascript
+export default class Teacher extends Person{
+
+    constructor(name, degree){
+        super(name);
+        this.degree = degree;
+    }
+
+    teach(){
+        console.log(`${this.name} is teaching with a ${this.degree} degree.`);
+    }
+}
+```
+
+- Use Named and Default Export
+
+Default: `import ... from ''`
+
+Named: `import { ... } from ''`
+
+e.g. `import React, {Component} from 'react'` in React Native.
+
+## [Summary of *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### Lec 1. What is Async JS?
 
