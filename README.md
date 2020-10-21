@@ -327,7 +327,7 @@ See instances at `person.js` and `teacher.js` files.
 
 #### Named and Default Exports
 
-Define a Default Export
+- Define a Default Export
 
 ```javascript
 export default class Teacher extends Person{
@@ -353,14 +353,102 @@ e.g. `import React, {Component} from 'react'` in React Native.
 
 ## [Summary of *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
-### Lec 1. What is Async JS?
+### 1. What is Async JS?
 
 **Async**: start something now and finish it later ..
 
-#### 1. Traditional JS
+An typical example in async js task:
 
-Time consuming jobs will block the thread. e.g. 
+```javascript
+statement 1
 
+statement 2
+
+statement 3: fetch data -> take some time;
+
+statement 4: process the data when it arrived.
+
+statement 5 independent of data fetching
+```
+In Sync JS, time consuming jobs will block the thread. e.g. 
+
+```javascript
+console.log(1);
+console.log(2);
+
+setTimeout(() => {
+    console.log("Callback called");
+}, 2000);
+
+console.log(3);
+console.log(4);
+/* 
+Output:
+1
+2
+3
+4
+Callback called
+*/
 ```
 
+
+### 2. HTTP Request
+
+The traditional way:
+
+```javascript
+const request = new XMLHttpRequest();
+
+request.addEventListener('readystatechange', () => {
+    if (request.readyState == 4){
+            console.log(request.responseText);
+    }
+})
+
+request.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+request.send();
 ```
+
+See more [`XMLHttpRequest.readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState)
+
+### 3. Status Codes, Callbacks & JSON Data
+
+```javascript
+
+const getTodos = (callback) => { // callback in parameter
+    const request = new XMLHttpRequest();
+
+    request.addEventListener('readystatechange', () => {
+        request.addEventListener('readystatechange', () => {
+            if (request.readyState == 4 && request.status == 200){
+                const data = JSON.parse(request.responseText);
+                callback(undefined, data);
+            }else if (request.readyState == 4){
+                callback("could not find data", undefined);
+            }
+        })
+    })
+
+    request.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+    request.send();
+}
+console.log(1);
+console.log(2);
+
+getTodos( (err, data) => {
+    //depend on the error or data, perform differently.
+    console.log("Callback fired");
+    if (err){
+        console.log(err);
+    }else{
+        console.log(data);
+    }
+    
+}); // Async function
+
+console.log(3);
+console.log(4);
+```
+
+See more [`HTTP response status codes`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
