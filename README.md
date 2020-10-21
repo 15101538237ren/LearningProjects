@@ -452,3 +452,163 @@ console.log(4);
 ```
 
 See more [`HTTP response status codes`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+
+### 4. `Callback Hell`, sequentially execute functions until data arrive
+
+Traditional way will cause the `Callback Hell` by nesting callbacks, and it is very hard to read and maintain if things get more complicated. But we do need the wait until function in a readable way. To do that, we need `Promise` in modern JS.
+
+```javascript
+const getTodos = (resource, callback) => {
+    const request = new XMLHttpRequest();
+
+    request.addEventListener('readystatechange', () => {
+        if (request.readyState == 4 && request.status == 200){
+            const data = JSON.parse(request.responseText);
+            callback(undefined, data);
+        }else if (request.readyState == 4){
+            callback("could not find data", undefined);
+        }
+    })
+
+    request.open("GET", resource);
+    request.send();
+}
+console.log(1);
+console.log(2);
+
+
+getTodos("todos/mario.json", (err, data) => {
+    console.log("Callback fired");
+    console.log(data);
+    getTodos("todos/shaun.json", (err, data) => {
+        console.log("Callback fired");
+        console.log(data);
+        getTodos("todos/luigi.json", (err, data) => {
+            console.log("Callback fired");
+            console.log(data);
+        });
+    });
+});
+
+console.log(3);
+console.log(4);
+```
+
+#### 5. `Promise` and Chaining Promises
+
+* `Promise`
+
+Following code is an example of implementing promise with either catching error when `reject` is called, or handling data when `resolve` is called.
+
+```javascript
+const getTodos = (resource, callback) => {
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => {
+            if (request.readyState == 4 && request.status == 200){
+                const data = JSON.parse(request.responseText);
+                resolve(data);
+            }else if (request.readyState == 4){
+                reject("could not find data");
+            }
+        })
+        request.open("GET", resource);
+        request.send();
+    })
+}
+
+getTodos("todos/mario.json")
+    .then(data => {
+        console.log("Promise resolved,", data);
+    })
+    .catch(err => {
+        console.log("Promise rejected,", err);
+    })
+```
+
+* Chaining `Promise`
+
+We can chain Promises sequentially by `return` a new `Promise`
+
+```javascript
+// Chaining Promises
+getTodos("todos/mario.json")
+    .then(data => {
+        console.log("Promise 1 resolved,", data);
+        return getTodos("todos/shaun.json");
+    })
+    .then(data => {
+        console.log("Promise 2 resolved,", data);
+        return getTodos("todos/luigis.json");
+    })
+    .then(data => {
+        console.log("Promise 3 resolved,", data);
+    })
+    .catch(err => {
+        console.log("Promise rejected,", err);
+    })
+    
+```
+
+#### `Fetch` API
+
+We can use the `Fetch` API to implement the `getTodos()` in a easier way.
+
+```javascript
+fetch("todos/mario.json")
+    .then(response => {
+        console.log("Promise 1 resolved,", response);
+        return response.json();
+    })
+    .then(data => {
+        console.log("Data,", data);
+    })
+    .catch(err => {
+        console.log("Promise rejected,", err);
+    })
+    
+```
+
+#### `await` and `async`
+
+Whenever a function is with `async` keyword, it automatically return a `Promise`. When a `await` is put in front of a function, the return value will be assigned when the function return a `Promise`. Which both together will make the code more readable and cleaner. e.g.
+
+```javascript
+const getTodos = async () => {
+    const response = await fetch("todos/mario.json");
+    const data = await response.json();
+    return data;
+}
+
+console.log(1);
+console.log(2);
+
+getTodos().then(data => {
+    console.log("Data,", data);
+}); // Non Blocking
+
+console.log(3);
+console.log(4);
+```
+
+#### Throw errors
+
+```javascript
+const getTodos = async () => {
+    const response = await fetch("todos/marios.json");
+    if (response.status !== 200){
+        throw new Error("Can't fetch the data");
+    }
+    const data = await response.json();
+    return data;
+}
+
+getTodos().then(data => {
+    console.log("Data,", data);
+}).catch(error => {
+    console.log("Error, ", error);
+});
+```
+
+## [Summary of *Node.js Crash Course* from Youtube](https://youtu.be/zb3Qk8SG5Ms)
