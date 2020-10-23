@@ -612,3 +612,505 @@ getTodos().then(data => {
 ```
 
 ## [Summary of *Node.js Crash Course* from Youtube](https://youtu.be/zb3Qk8SG5Ms)
+
+### Intro and Setup
+
+#### Intro to Node.js
+Node.js is written in C++ which wraps V8 engine. V8 engine compile JS into machine code. Therefore, Node.js is able to do all server functions like: 
+- Read & write files on computer
+- Connect to DB
+- Act as server for content.
+
+#### Advantage of using Node.js
+
+- No need to learn extra language for server, which can also share code between front and back end.
+- Node.js has a massive community and with massive third-party packages & tools to help.
+
+#### Prerequisite
+
+- Fundation of JS(functions, `async`, `Promise`, etc)
+- `HTML` & `CSS`
+
+
+#### Syllabus
+1. How to install `Node.js` and use it to run JS.
+2. How to `read` and `write` files
+3. How to create a `server` to create a website
+4. How to create a `Express` App / website
+5. How to use MangoDb (a NoSql Database)
+6. Hoe to use template engine to easily create HTML views
+7. Put everything together to create a Blog site
+
+#### Install Node.js
+
+1. Download Node from https://nodejs.org/ and install 
+2. Run in command line by typing `node`.
+
+
+### Node.js Basics
+
+#### `Global Object`
+
+`window` is a global object, which has `setTimeout()`, `alert()`, and many other methods or properties, which can be used without need to call the global object name. e.g:
+
+```javascript
+setTimeout(()=>{
+    alert("alert");
+}, 2000)
+```
+
+In `Node`, the global object is `global`.
+
+```javascript
+global.setTimeout(()=>{
+    console.log("Timeout");
+    clearInterval(interval);
+}, 3000);
+
+var nsec = 0;
+
+const interval = global.setInterval(() => {
+    nsec += 1;
+    console.log(`${nsec}s`);
+}, 1000);
+
+
+console.log(__dirname);
+console.log(__filename);
+```
+
+#### `module` & `require`
+
+##### Module `people.js`
+
+In `people.js`, define variables `people` and `ages` and exporting them in module.exports
+
+```javascript
+const people = ["Mario", "Shaun", "Luigi"];
+const ages = [20, 30, 40];
+
+module.exports = {
+    people, ages
+}
+```
+
+##### Require `module.js`
+
+In `module.js`, import variables `people` and `ages` in `people.js` through `require`
+
+```javascript
+const {people, ages} = require("./people.js");
+console.log(people, ages)
+
+const os = require("os"); // OS module is very useful in Node
+
+console.log(os.platform(), os.homedir());
+```
+
+#### The File System
+
+```javascript
+const fs = require("fs");
+
+const dir = "./blogs";
+const fp1 = `${dir}/blog1.txt`;
+const fp2 = `${dir}/blog2.txt`;
+
+// read files
+const read = (fp) =>{
+    fs.readFile(fp, (err, data) => {
+        if (err) {
+            console.log(err);
+        }else{
+            console.log(data.toString());
+        }
+    });
+}
+
+const write = (fp) =>{
+    fs.writeFile(fp, `Hello ${fp}!`, (err) =>{
+        if (err) {
+            console.log(err);
+        }else{
+            console.log(`File ${fp} is written!`);
+        }
+    });
+}
+
+const delete_file = (fp) =>{
+    if (fs.existsSync(fp)){
+        // deleting files
+        fs.unlink(fp, (err) =>{
+            if (err) {
+                console.log(err);
+            }else{
+                console.log(`File ${fp} is deleted!`);
+            }
+        });
+    }
+}
+
+// directories
+const pipeline = () => {
+    if (!fs.existsSync(dir)){
+        fs.mkdir(dir, (err)=>{
+            if (err){
+                console.log(err);
+            }else{
+                console.log(`folder ${dir} created`);
+                // writing files
+                write(fp1);
+                write(fp2);
+            }
+        });
+    }else{
+        delete_file(fp1);
+        delete_file(fp2);
+        fs.rmdir(dir, (err) =>{
+            if (err){
+                console.log(err);
+            }else{
+                console.log(`folder ${dir} deleted`);
+            }
+        });
+    }
+};
+
+pipeline();
+```
+
+#### Streams & Buffers
+
+Stream: start using data before it has finished loading. e.g. Netflix video loading.
+
+```javascript
+const fs = require("fs");
+
+const fp = "./carpe diem.txt";
+const fp2 = "./carpe diem.txt.bk";
+
+const readStream = fs.createReadStream(fp, { encoding : "utf-8" });
+
+const writeStream = fs.createWriteStream(fp2);
+
+const lineSeparator = "\n------------A NEW DATA CHUNK------------\n";
+
+const readStart = () =>{
+    readStream.on('data', (chunk) => {
+        console.log(lineSeparator);
+        console.log(chunk.toString());
+        
+        writeStream.write(lineSeparator);
+        writeStream.write(chunk);
+    });
+};
+
+// readStart();
+
+//piping
+readStream.pipe(writeStream);
+```
+
+### Client & Server
+
+- `IP address`
+
+Each computer connected to Internet have a unique `IP address`.
+
+- `Domain`
+A mask of IP, make the server identifier easier to remember.
+
+- Server
+
+In Node, we create a server **manually**.
+
+```javascript
+const http = require("http");
+
+const port = 3000; // port number likes 'doors' into a computer.
+const domain = 'localhost'; // IP : '127.0.0.1'
+
+const server = http.createServer( (req, res) => {
+    console.log("request made");
+});
+
+server.listen(port, domain, () => {
+    console.log(`Listening for request on port ${port}`);
+});
+```
+
+- `Request` & `Response`
+
+```javascript
+const http = require("http");
+const fs = require("fs");
+
+const port = 3000; // port number likes 'doors' into a computer.
+const domain = 'localhost'; // IP : '127.0.0.1'
+const views = "./views";
+
+const server = http.createServer( (req, res) => {
+    console.log(req.url, req.method);
+
+    res.setHeader('Content-Type', 'text/html');
+
+    let view = views;
+    switch(req.url){
+        case "/":
+            view = `${view}/index.html`;
+            res.statusCode = 200;
+            break;
+        case "/about":
+            view = `${view}/about.html`;
+            res.statusCode = 200;
+            break;
+        case "/about-me":
+            res.setHeader('Location', '/about');
+            res.statusCode = 301;
+            res.end();
+            break;
+        default:
+            view = `${view}/404.html`;
+            res.statusCode = 404;
+            break;
+    }
+
+    fs.readFile(view, (err, data) => {
+        if (err){
+            console.log(err);
+        }else{
+            res.write(data);
+        }
+        res.end()
+    });
+});
+
+server.listen(port, domain, () => {
+    console.log(`Listening for request on port ${port}`);
+});
+```
+
+- Status Codes
+1. 100 Range: informational response
+2. 200 Range: success codes
+3. 300 Range: codes for redirect
+4. 400 Range: user/client error codes
+5. 400 Range: server error codes
+
+### `npm` - Node Package Manager
+
+`npm` is automatically installed when you installing Node. You can install node packages by searching on https://www.npmjs.com, and install them according to their documentation.
+
+
+- `package.json` File & Dependencies
+
+Any local package dependencies for the project are recorded at `package.json`. You can install the dependencies by running  `npm install`.
+
+### [Express](https://www.npmjs.com/package/express)
+
+`Express` is a web framework for node.
+
+```javascript
+const express = require("express");
+
+const app = express();
+
+app.listen(3000);
+
+app.get('/', (req, res) =>{
+    res.sendFile('./views/index.html', { root : __dirname });
+});
+
+app.get('/about', (req, res) =>{
+    res.sendFile('./views/about.html', { root : __dirname });
+});
+
+app.get('/about-us', (req, res) =>{
+    res.redirect('/about');
+});
+
+// 404 page
+app.use( (req, res) => {
+    res.status(404).sendFile('./views/404.html', { root : __dirname });
+});
+```
+
+### View Engines
+
+#### `EJS`
+
+[EJS](https://www.npmjs.com/package/ejs), Embedded JavaScript templates
+
+- using `app.set('view engine', 'ejs')` to set default template engine.
+
+- create `*.ejs` template file in `views` folder. Otherwise, you have to set `app.set('views', 'your view folder')`.
+
+- you can JS statement in `.ejs` file by `<% js statement; %>`
+
+- you can insert values from JS into html by `<%= %>` (with escaping), or `<%- %>` (raw html).
+
+- render the ejs file by `res.render('template', { vars : var_values})`
+
+- if logic in .ejs
+```javascript
+<% if ()  {%>
+    <% blogs.foreach(blog => { %>
+        <p> <%= blog.name%> </p>
+    <% })%>
+<% }%>
+
+```
+- The procedure that EJS render `.ejs file: .ejs -> EJS view engine processing -> HTML`
+
+
+- include partials: e.g. headers, footers by `
+<%- include("head.ejs") %>`
+
+- middleware & static files: `app.use(express.static('static'))`
+
+### Middleware
+
+`Request` -> `Middleware` -> `Response`
+
+Middlewares like `app.use()` are processed for all request, but `app.get()` only process GET request. You can use next to continue the middleware list when a middleware is completed. e.g.
+
+```javascript
+app.use((req, res, next) => {
+    console.log('logging');
+    next();
+})
+```
+#### 3rd party middleware
+Middleware examples:
+
+1. `Logging`, e.g. `morgan`
+2. `Authentication` check for protected routes.
+3. Parsing `JSON` middlewares from requests.
+4. Return `404` pages
+
+### MangoDB
+
+#### `MangoDB`(Nosql DB) vs SQL DB
+`Collections` vs Tables & `Documents` vs Rows. e.g.
+
+Blog Collection: Blog Document 1, Blog Document 2, etc.
+
+`MangoDB Atlas` can be used for free cloud MangoDB service.
+
+#### `Mangoose`
+
+Mangoose is an ODM library - Object Document Mapping Library. e.g. User model -> User.get(), User.findById().
+
+- Schemas & Models: schema defines the structure of a type of data/document, format: property name, property type.e.g.
+
+User Schema: name (string, required), age(number), etc.
+
+```javascript
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const blog_schema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  snippet: {
+    type: String,
+    required: true,
+  },
+  body: {
+    type: String,
+    required: true
+  },
+}, { timestamps: true });
+
+const Blog = mongoose.model('Blog', blog_schema);
+module.exports = Blog;
+```
+
+#### CRUD of Cloud MangoDB in Node
+```javascript
+//Retrieve
+Blog.find().sort({ createdAt: -1 })
+    .then(result => {
+      res.render('index', { blogs: result, title: 'All blogs' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+//Retrieve
+Blog.findById(id)...
+
+const blog = new Blog(req.body);
+//Create Or Update
+blog.save()
+
+//Delete
+Blog.findByIdAndDelete(id)
+
+```
+
+### Get, Post & Delete Requests
+
+When designing the system, it is better to figure out the REST APIs will be used:e.g.
+
+- GET   blogs  /
+- GET   blogs  /create
+- GET   blogs   /:id
+- POST   blogs /
+- PUT   blogs   /:id
+- DELETE   blogs   /:id
+
+### Express Router & MVC
+
+For better organize and module the project, it is better to split the routers in different module and files.
+
+e.g. the router for all `/blog` request can be put in `blog_routes.js`
+
+```javascript
+const express = require('express');
+const blog_controller = require('../controllers/blog_controller');
+
+const router = express.Router();
+
+router.get('/create', blog_controller.blog_create_get);
+router.get('/', blog_controller.blog_index);
+router.post('/', blog_controller.blog_create_post);
+router.get('/:id', blog_controller.blog_details);
+router.delete('/:id', blog_controller.blog_delete);
+
+module.exports = router;
+```
+
+and in `App.js`, you just need to import your router and add it into middlewares.
+
+```javascript
+const blog_routes = require('./routes/blog_routes');
+
+// blog routes
+app.use('/blogs', blog_routes);
+```
+
+#### MVC
+
+Model - Controller - Views, e.g. `controllers` can be separated from App.js or routers.js by:
+
+```javascript
+const Blog = require('../models/blog');
+
+const blog_index = (req, res) => {
+
+  Blog.find().sort({ createdAt: -1 })
+    .then(result => {
+      res.render('index', { blogs: result, title: 'All blogs' });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+module.exports = {
+  blog_index
+}
+```
