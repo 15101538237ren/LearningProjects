@@ -370,7 +370,7 @@ statement 4: process the data when it arrived.
 
 statement 5 independent of data fetching
 ```
-In Sync JS, time consuming jobs will block the thread. e.g. 
+In Sync JS, time consuming jobs will block the thread. If it is async like follows, it won't affect the remaining tasks.
 
 ```javascript
 console.log(1);
@@ -412,7 +412,7 @@ request.send();
 
 See more [`XMLHttpRequest.readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState)
 
-### 3. Status Codes, Callbacks & JSON Data
+### 3. Status Codes, Callback & JSON Data
 
 ```javascript
 

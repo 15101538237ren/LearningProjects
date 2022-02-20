@@ -48,6 +48,7 @@ let people = [jessica, tom];
 people[2] = 1; // Dynamic Typing
 console.log(people[0]); // Access element of an array
 
+console.log(people)
 
 /* Function */
 

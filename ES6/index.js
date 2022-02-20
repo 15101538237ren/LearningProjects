@@ -120,12 +120,13 @@ const clone = {...combined};//clone a object
 
 /* Classes and Class Inheritance*/
 
-import { Person } from './person'
+import Person from './person.mjs'
 const ariana = new Person('ariana');
 ariana.name;
 console.log(ariana);
 
-import { Teacher } from './teacher'
+const Teacher  = require('./teacher.mjs')
+//import { Teacher } from './teacher'
 const susan = new Teacher('susan', 'master');
 
 console.log(susan.teach());
