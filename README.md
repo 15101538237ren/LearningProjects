@@ -1,5 +1,71 @@
 # Node.js and React Native learning path
 
+Table of Contents
+=================
+
+- [Node.js and React Native learning path](#nodejs-and-react-native-learning-path)
+- [Table of Contents](#table-of-contents)
+  - [Summary of *Fundamental of Modern JS* from Youtube](#summary-of-fundamental-of-modern-js-from-youtube)
+    - [1. Fundamental Questions about JS](#1-fundamental-questions-about-js)
+      - [(1) What JS is?](#1-what-js-is)
+      - [(2) What JS can do?](#2-what-js-can-do)
+      - [(3) Where does JS run?](#3-where-does-js-run)
+      - [(4). What is the difference between Javascript vs ECMAScript?](#4-what-is-the-difference-between-javascript-vs-ecmascript)
+    - [2 Set Up the  Development Environment](#2-set-up-the--development-environment)
+    - [3 Separation of Concerns](#3-separation-of-concerns)
+    - [4 Javascript in Node](#4-javascript-in-node)
+    - [5 Variable and Constant](#5-variable-and-constant)
+    - [6 Primitive Types and Reference Types in Javascript](#6-primitive-types-and-reference-types-in-javascript)
+      - [Primitive Types](#primitive-types)
+      - [Reference Types](#reference-types)
+  - [Summary of *ES6 Tutorial: Learn Modern JavaScript in 1 Hour* from Youtube](#summary-of-es6-tutorial-learn-modern-javascript-in-1-hour-from-youtube)
+      - [The `this` keyword](#the-this-keyword)
+      - [Arrow Function](#arrow-function)
+      - [`Array.map` Method](#arraymap-method)
+      - [Destructing](#destructing)
+      - [Spread Operator](#spread-operator)
+      - [Classes and Class Inheritance](#classes-and-class-inheritance)
+      - [Modules](#modules)
+      - [Named and Default Exports](#named-and-default-exports)
+  - [Summary of *Asynchronous JavaScript* from Youtube](#summary-of-asynchronous-javascript-from-youtube)
+    - [1. What is Async JS?](#1-what-is-async-js)
+    - [2. HTTP Request](#2-http-request)
+    - [3. Status Codes, Callback & JSON Data](#3-status-codes-callback--json-data)
+    - [4. `Callback Hell`, sequentially execute functions until data arrive](#4-callback-hell-sequentially-execute-functions-until-data-arrive)
+      - [5. `Promise` and Chaining Promises](#5-promise-and-chaining-promises)
+      - [`Fetch` API](#fetch-api)
+      - [`await` and `async`](#await-and-async)
+      - [Throw errors](#throw-errors)
+  - [Summary of *Node.js Crash Course* from Youtube](#summary-of-nodejs-crash-course-from-youtube)
+    - [Intro and Setup](#intro-and-setup)
+      - [Intro to Node.js](#intro-to-nodejs)
+      - [Advantage of using Node.js](#advantage-of-using-nodejs)
+      - [Prerequisite](#prerequisite)
+      - [Syllabus](#syllabus)
+      - [Install Node.js](#install-nodejs)
+    - [Node.js Basics](#nodejs-basics)
+      - [`Global Object`](#global-object)
+      - [`module` & `require`](#module--require)
+        - [Module `people.js`](#module-peoplejs)
+        - [Require `module.js`](#require-modulejs)
+      - [The File System](#the-file-system)
+      - [Streams & Buffers](#streams--buffers)
+    - [Client & Server](#client--server)
+    - [`npm` - Node Package Manager](#npm---node-package-manager)
+    - [Express](#express)
+    - [View Engines](#view-engines)
+      - [`EJS`](#ejs)
+    - [Middleware](#middleware)
+      - [3rd party middleware](#3rd-party-middleware)
+    - [MangoDB](#mangodb)
+      - [`MangoDB`(Nosql DB) vs SQL DB](#mangodbnosql-db-vs-sql-db)
+      - [`Mangoose`](#mangoose)
+      - [CRUD of Cloud MangoDB in Node](#crud-of-cloud-mangodb-in-node)
+    - [Get, Post & Delete Requests](#get-post--delete-requests)
+    - [Express Router & MVC](#express-router--mvc)
+      - [MVC](#mvc)
+  - [React Tutorial with Redux](#react-tutorial-with-redux)
+
 ## [Summary of *Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
 ### 1. Fundamental Questions about JS
@@ -1114,3 +1180,7 @@ module.exports = {
   blog_index
 }
 ```
+
+## [React Tutorial with Redux](https://www.youtube.com/playlist?list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG)
+
+
