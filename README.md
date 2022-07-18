@@ -82,8 +82,8 @@ There are 5 Primitive Types in Javascript, and they are: `String`, `Boolean`, `N
 let name = 'Jessica'; //String
 let age = 24; //Number
 let isMale = false; //Boolean
-let description = undefined; //Boolean
-let favoriteFood = null; //Boolean
+let description = undefined; //undefined
+let favoriteFood = null; //null
 ```
 
 Javascript is a Dynamic Typing language, which means you can change the type of variables by assigning to different type values.
@@ -895,7 +895,7 @@ server.listen(port, domain, () => {
 2. 200 Range: success codes
 3. 300 Range: codes for redirect
 4. 400 Range: user/client error codes
-5. 400 Range: server error codes
+5. 500 Range: server error codes
 
 ### `npm` - Node Package Manager
 
