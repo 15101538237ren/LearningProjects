@@ -1,10 +1,7 @@
 # Node.js and React Native learning path
 
-Table of Contents
-=================
-
-- [Node.js and React Native learning path](#nodejs-and-react-native-learning-path)
-- [Table of Contents](#table-of-contents)
+## Table of Contents
+========================
   - [Summary of *Fundamental of Modern JS* from Youtube](#summary-of-fundamental-of-modern-js-from-youtube)
     - [1. Fundamental Questions about JS](#1-fundamental-questions-about-js)
       - [(1) What JS is?](#1-what-js-is)
@@ -64,7 +61,29 @@ Table of Contents
     - [Get, Post & Delete Requests](#get-post--delete-requests)
     - [Express Router & MVC](#express-router--mvc)
       - [MVC](#mvc)
-  - [React Tutorial with Redux](#react-tutorial-with-redux)
+  - [Summary of ReactJS Tutorial](#summary-of-reactjs-tutorial)
+    - [1. Introduction](#1-introduction)
+      - [What is React?](#what-is-react)
+      - [Why learn React?](#why-learn-react)
+      - [Component Based Architecture](#component-based-architecture)
+      - [Channel Content](#channel-content)
+    - [2. Hello World](#2-hello-world)
+    - [3. Folder Structure](#3-folder-structure)
+    - [4. Components](#4-components)
+    - [5. Stateless Functional Component](#5-stateless-functional-component)
+    - [6. Stateful Class Component](#6-stateful-class-component)
+    - [8. JSX](#8-jsx)
+    - [9. Props](#9-props)
+    - [10. State](#10-state)
+      - [Props vs State Components](#props-vs-state-components)
+    - [11. setState](#11-setstate)
+    - [12. Destructing `props` and `state`](#12-destructing-props-and-state)
+    - [14. Event Binding](#14-event-binding)
+    - [15. Method as `Props`](#15-method-as-props)
+    - [16. Conditional rendering](#16-conditional-rendering)
+    - [17. List Rendering](#17-list-rendering)
+    - [18. List and Keys](#18-list-and-keys)
+    - [Project: Todo List App](#project-todo-list-app)
 
 ## [Summary of *Fundamental of Modern JS* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
@@ -1181,6 +1200,408 @@ module.exports = {
 }
 ```
 
-## [React Tutorial with Redux](https://www.youtube.com/playlist?list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG)
+## [Summary of ReactJS Tutorial](https://www.youtube.com/playlist?list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3)
+
+### 1. Introduction
+
+#### What is React?
+
+React is an `open source` , `javascript library`, not a framework, and focusing on building `UI` with rich ecosystem.
+
+#### Why learn React?
+
+- Create and maintened by Meta.
+- Huge community
+- Lots job demands.
+
+#### Component Based Architecture
+
+- Components for reusable code
+- React is declarative: tell what you want and React will build the actual UI
+- React will handle efficiently updating and rendering of components; DOM updates are handled gracefully in React; 
+
+#### Channel Content
+
+1. Fundamentals of React
+2. HTTP
+3. Routing
+4. Redux - State Management
+5. Utilities
+
+### 2. Hello World
+
+Run the following cmd in terminal with the `node` installed.
+
+```bash
+npx create-react-app helloworld
+cd helloworld
+npm start
+```
+
+`npx` is a npm package runner already installed with `npm`.
+
+### 3. Folder Structure
+
+Folders & Files: 
+
+`node_modules`, `public`, `src`, `package.json`
+
+### 4. Components
+
+Components describe a part of the UI, and they are reusable and can be nested inside other components.
+
+Component types
+
+`Stateless Functional Component`: Javascript functions.
+
+`Stateful Class Component`: Class extending Component class Render method returning HTML
+
+### 5. Stateless Functional Component
+
+Example: Greet.js, can be compiled and explained by `Babel` compiler.
+
+```javascript
+import React from 'react'
+
+const Greet = () => <h1>Hello World!</h1>
+
+export default Greet
+```
+
+### 6. Stateful Class Component
+
+- Essentially a `ES6` class, can optially receive properties (`props`) and return HTML (`JSX`). 
+
+- The class component can also maintain a private state.
+
+| Function                                     | Class                           |
+| -------------------------------------------- | ------------------------------- |
+| Simple Functions                             | More  feature rich              |
+| Use functional component as much as possible | Maintain their own data - state |
+| Stateless/Dumb/Presentational                | Stateful/Smart/Container        |
+| Mainly responsible for UI                    | provide lifecycle hooks         |
+
+### 8. JSX
+
+- `JSX` stands for `JavaScript XML`, a extension to the javascript language syntax
+
+- Eable write XML-like code for elements and components.
+
+- JSX tags have a tag name, attributes, and children.
+
+- JSX is not required to write React Applications, but it can make your React code more simpler and elegant. 
+
+- It ultimately transpiles to pure JavaScript which is understood by the browsers.
+
+See the difference between JSX and non-JSX version below:
+
+```javascript
+import React from 'react'
+
+const JSXVersion = () => {
+    return (
+        <div id="hello" class="dummyClass">
+            <h1>Hello</h1>
+        </div>
+    )
+}
+
+const NonJSX = () => {
+    return React.createElement('div',
+    {id: "hello", className:"dummyClass"},
+    React.createElement('h1', null, "Hello"))
+}
+
+export default {JSXVersion, NonJSX}
+```
+
+### 9. Props
+
+The properties of components, which are immutable and enable components to be dynamic. If you want change the values of properties, consider the states.
+
+Example in functional stateless component:
+
+In `App.js`:
+
+```javascript
+import Greet from "./components/Greet";
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Greet name="Honglei">
+          <p>This is a children element</p>
+        </Greet>
+
+        <Greet name="Junhao"></Greet>
+
+        <Greet name="Yusong"></Greet>
+      </header>
+    </div>
+  );
+}
+```
+
+In `Greet.js`:
+
+```javascript
+import React from "react";
+
+const Greet = (props) => (
+  <div>
+    <h1>Hello {props.name}!</h1> {props.children}
+  </div>
+);
+
+export default Greet;
+```
+
+If using class stateful component, In `Greet.js`:
+
+```javascript
+import React from "react";
+
+const Greet = (props) => (
+  <div>
+    <h1>Hello {props.name}!</h1> {props.children}
+  </div>
+);
+
+export default Greet;
+```
+
+### 10. State
+
+#### Props vs State Components
+| `props`                              | `state`                                 |
+| ------------------------------------ | --------------------------------------- |
+| `props` get passed to the components | `state` is managed within the component |
+| Functional parameters                | Variables declared in the function body |
+| `props` are immutable                | `state` can be changed                  |
+| Usage: `props`                       | Usage:  `useState`                      |
+
+Example code:
+
+```javascript
+import React, { Component } from "react";
+
+class Message extends Component {
+  constructor() {
+    super();
+    this.state = {
+      message: "Welcome visitor!",
+    };
+  }
+
+  changeMessage() {
+    this.setState({
+      message: "Thanks for subscribing!",
+    }, ()=>console.log("Subscribed callback"));
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+        <button onClick={() => this.changeMessage()}>Subscribe</button>
+      </div>
+    );
+  }
+}
+```
+
+### 11. setState
+
+- Always use `setState` and never modify the `state` directly.
+- Use `callback` function if there is code has to be executed after the states have been updated, which is the second parameter of the `setState` method.
+- When you update the `state` based on the previous state value, pass in a function as an argument instead of the regular object.
+
+```javascript
+import React, { Component } from "react";
+
+export class Counter extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      counter: 0,
+    };
+  }
+
+  increment() {
+    this.setState(
+      (previousState, props) => ({
+        counter: previousState.counter + 1,
+      }),
+      () => console.log("Callback of setState is called")
+    );
+  }
+  incrementFive() {
+    for (var i = 0; i < 5; i++) {
+      this.increment();
+    }
+  }
+  render() {
+    return (
+      <div>
+        <h1>Counter - {this.state.counter}</h1>
+        <button
+          onClick={() => {
+            this.incrementFive();
+          }}
+        >
+          Increment 5
+        </button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+```
+
+### 12. Destructing `props` and `state`
+
+For functional components:
+```javascript
+const {name, hereoName} = props
+```
+
+For class components, usually destructing them in the `render` method:
+
+```javascript
+render(){
+    const {name, hereoName} = this.props
+}
+
+```
 
 
+### 14. Event Binding
+
+Note the `onClick={this.clickHandler.bind(this)` part can be changed to `onClick={() => this.clickHandler()`
+
+```javascript
+import React, { Component } from "react";
+
+export class EventBind extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      message: "Hello",
+    };
+  }
+
+  clickHandler(){
+    this.setState({
+        message:"Goodbye"
+    })
+  }
+  render() {
+    return (
+      <div>
+        <h2>{this.state.message}</h2>
+        <button onClick={this.clickHandler.bind(this)}>Click</button>
+      </div>
+    );
+  }
+}
+
+export default EventBind;
+```
+
+### 15. Method as `Props`
+
+Ex. A child component call its parent component's function
+
+In `ParentComponent.js`:
+
+```javascript
+import React, { Component } from "react";
+import ChildComponent from "./ChildComponent";
+
+class ParentComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      parentName: "parent",
+    };
+    this.greetParent = this.greetParent.bind(this);
+  }
+
+  greetParent() {
+    alert("Hello " + this.state.parentName);
+  }
+
+  render() {
+    return <div><ChildComponent parentHandler={this.greetParent}></ChildComponent></div>;
+  }
+}
+
+export default ParentComponent;
+```
+
+In `ChildComponent.js`:
+
+```javascript
+import React from 'react'
+
+function ChildComponent(props) {
+  return (
+    <div><button onClick={props.parentHandler}>ChildComponent</button></div>
+  )
+}
+
+export default ChildComponent
+```
+
+### 16. Conditional rendering
+
+Three ways:
+
+1. If-else statement
+
+```javascript
+if (condition) {
+    
+} else {
+    
+}
+```
+
+1. Conditional operator
+
+```javascript
+condition ? A : B
+```
+
+3. Short-circuit operator
+```javascript
+condition && element
+```
+
+### 17. List Rendering
+
+```javascript
+function NameList(){
+    const names = ["A", "B", "C"]
+    const NameList = names.map(name => <h2>{name}</h2>)
+    return (
+        <div>
+            {NameList}
+        </div>
+    )
+}
+```
+
+### 18. List and Keys
+
+- A "key" is a special string attribute you need to include when creating lists of elements.
+- Keys give the elements a stable identity.
+- Keys helps React identify which items have changed, are added or are removed.
+- Help in efficient update of the UI.
+
+### Project: Todo List App
