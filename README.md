@@ -1605,3 +1605,28 @@ function NameList(){
 - Help in efficient update of the UI.
 
 ### Project: Todo List App
+
+[Install MangoDB community server](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" # install brew
+
+brew tap mongodb/brew
+
+brew install mongodb-community@4.2 #
+
+brew services start mongodb-community@4.2 # start service
+
+brew services stop mongodb-community@4.2
+```
+
+Or
+```bash
+TARGET_DB_DIR=/Users/bytedance/data/db
+
+mkdir -p $TARGET_DB_DIR
+
+chmod -R 777 $TARGET_DB_DIR
+
+mongod --dbpath=$TARGET_DB_DIR
+```
