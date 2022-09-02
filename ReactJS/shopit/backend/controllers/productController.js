@@ -17,7 +17,7 @@ exports.newProduct = AsyncErrorHandler(async (req, res, next) => {
 
 //Get all products => GET /api/v1/products
 exports.getProducts = AsyncErrorHandler(async (req, res, next) => {
-  let resPerPage = 9;
+  let resPerPage = 8;
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()
