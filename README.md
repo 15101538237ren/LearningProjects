@@ -226,6 +226,11 @@ function square(a) {
 
 console.log(square(107));
 ```
+### More resources
+- [The Modern JavaScript Tutorial] (https://javascript.info/)
+- [W3Schools – JavaScript Tutorial](https://www.w3schools.com/js/default.asp)
+- [Interaction: alert, prompt, confirm](https://javascript.info/alert-prompt-confirm)
+- [Function Expressions]([https://youtu.be/NCwa_xi0Uuc](https://javascript.info/function-expressions))
 
 ## [Summary of *ES6 Tutorial: Learn Modern JavaScript in 1 Hour* from Youtube](https://youtu.be/NCwa_xi0Uuc)
 
