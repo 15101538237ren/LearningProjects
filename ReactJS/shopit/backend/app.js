@@ -11,6 +11,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
 //Import all routes
 
 const products = require("./routes/product");
