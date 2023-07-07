@@ -150,7 +150,7 @@ var sport = 'tennis';
 sport = 'running';
 ```
 
-where the difference between `var` and `let` keyword is that Variables defined by `var` is available in **global** scope, and the variables defined by `let` only available in **local** scape, e.g. function.
+> The difference between `var` and `let` keyword is that Variables defined by `var` is available in **global** scope, and the variables defined by `let` only available in **local** scape, e.g. function.
 
 To define a constant, you can type:
 
@@ -167,11 +167,11 @@ There are 5 Primitive Types in Javascript, and they are: `String`, `Boolean`, `N
 let name = 'Jessica'; //String
 let age = 24; //Number
 let isMale = false; //Boolean
-let description = undefined; //undefined
-let favoriteFood = null; //null
+let description = undefined; //Undefined
+let favoriteFood = null; //Null
 ```
 
-Javascript is a Dynamic Typing language, which means you can change the type of variables by assigning to different type values.
+> Javascript is a `Dynamic Typing language`, which means you can change the type of variables by assigning to different type values.
 
 #### Reference Types
 There are 3 Reference Types in Javascript, and they are: `Object`, `Array` and `Function`. e.g.
@@ -440,6 +440,8 @@ Default: `import ... from ''`
 Named: `import { ... } from ''`
 
 e.g. `import React, {Component} from 'react'` in React Native.
+
+[Difference Between Named Export and Default Export](https://vhudyma-blog.eu/2020-09-27-default-vs-named-export-what-is-the-difference/)
 
 ## [Summary of *Asynchronous JavaScript* from Youtube](https://youtu.be/ZcQyJ-gxke0?list=PL4cUxeGkcC9jx2TTZk3IGWKSbtugYdrlu)
 
