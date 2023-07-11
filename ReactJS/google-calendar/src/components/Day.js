@@ -24,8 +24,9 @@ function Day({ day, rowIndex }) {
       ? 'bg-blue-600 text-white rounded-full w-7'
       : '';
   }
+
   return (
-    <div className='border border-gray-200 flex flex-col'>
+    <div className='border border-gray-200 flex flex-col min-h-[200px]'>
       <header className='flex flex-col items-center'>
         {rowIndex === 0 && (
           <p className='text-sm mt-1'>{day.format('ddd').toUpperCase()}</p>

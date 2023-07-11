@@ -2,13 +2,13 @@ import React, { Fragment } from 'react';
 import Day from './Day';
 function Month({ month }) {
   return (
-    <div className='flex-1 grid grid-cols-7 grid-rows-5'>
+    <div className='flex-1 flex flex-col'>
       {month.map((row, i) => (
-        <Fragment key={i}>
+        <div className='grid grid-cols-7' key={i}>
           {row.map((day, idx) => (
             <Day key={idx} day={day} rowIndex={i} />
           ))}
-        </Fragment>
+        </div>
       ))}
     </div>
   );

@@ -816,6 +816,14 @@ select {
   height: 100vh;
 }
 
+.min-h-\[400px\] {
+  min-height: 400px;
+}
+
+.min-h-\[200px\] {
+  min-height: 200px;
+}
+
 .w-1\/4 {
   width: 25%;
 }
@@ -854,10 +862,6 @@ select {
 
 .grid-cols-7 {
   grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-rows-5 {
-  grid-template-rows: repeat(5, minmax(0, 1fr));
 }
 
 .grid-rows-6 {
